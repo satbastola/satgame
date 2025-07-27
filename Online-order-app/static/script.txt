@@ -1,0 +1,28 @@
+function login() {
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const error = document.getElementById("login-error");
+
+  if (username === "" || password === "") {
+    error.textContent = "Please enter both username and password.";
+    return;
+  }
+
+  // Simulated login success
+  document.getElementById("login-section").classList.add("hidden");
+  document.getElementById("order-section").classList.remove("hidden");
+  document.getElementById("user-name").textContent = username;
+}
+
+document.getElementById("order-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const items = Array.from(document.querySelectorAll('input[name="item"]:checked'))
+                     .map(item => item.value);
+
+  const confirmation = document.getElementById("order-confirmation");
+  if (items.length === 0) {
+    confirmation.textContent = "Please select at least one item.";
+  } else {
+    confirmation.textContent = `✅ Order placed for: ${items.join(", ")}`;
+  }
+});
