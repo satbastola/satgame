@@ -1,34 +1,34 @@
-# .github/workflows/deploy.yml
-name: 🚀 Deploy Jupyter Book
+name: Run Jupyter Notebook
 
 on:
   push:
     branches:
-      - main  # or 'master' depending on your default branch
+      - main  # or your target branch
 
 jobs:
-  build-deploy:
+  execute-notebook:
     runs-on: ubuntu-latest
 
     steps:
-    - name: 🧰 Checkout repo
+    - name: 📥 Checkout repository
       uses: actions/checkout@v3
 
     - name: 🐍 Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.10'  # Adjust as needed
+        python-version: '3.10'  # or your preferred version
 
     - name: 📦 Install dependencies
       run: |
-        pip install -r requirements.txt
-        pip install jupyter-book
+        python -m pip install --upgrade pip
+        pip install jupyter nbconvert
 
-    - name: 🏗️ Build Jupyter Book
-      run: jupyter-book build .
+    - name: 📓 Execute notebook
+      run: |
+        jupyter nbconvert --to notebook --execute /sachitGame.ipynb --output executed_/sachitGame.ipynb
 
-    - name: 🌍 Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+    - name: 📤 Upload executed notebook
+      uses: actions/upload-artifact@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./_build/html
+        name: executed-notebook
+        path: executed_notebook.ipynb
