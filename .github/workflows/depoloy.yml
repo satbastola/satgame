@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
         with:
-          persist-credentials: false  # disables default token injection
+          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -25,10 +25,13 @@ jobs:
       - name: Build the book
         run: jupyter-book build .
 
-      - name: Deploy to GitHub Pages
+      - name: Create gh-pages branch with ghp-import
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          ghp-import -n -f -p _build/html
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ghp-import -n -f _build/html -b gh-pages
+
+      - name: Push to GitHub Pages
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/satbastola/satgame.git
+          git push origin gh-pages --force
