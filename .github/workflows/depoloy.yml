@@ -25,13 +25,13 @@ jobs:
 
     - name: 📓 Execute notebook
       run: |
-        jupyter nbconvert --to notebook --execute notebook.ipynb \
+        jupyter nbconvert --to notebook --execute sachitGame.ipynb \
           --ExecutePreprocessor.kernel_name=python3 \
           --ExecutePreprocessor.timeout=600 \
-          --output executed_notebook.ipynb
+          --output executed_sachitGame.ipynb
       
     - name: 📤 Upload executed notebook
       uses: actions/upload-artifact@v4
       with:
         name: executed-notebook
-        path: executed_notebook.ipynb
+        path: executed_sachitGame.ipynb
