@@ -12,14 +12,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
         with:
-          persist-credentials: false  # disables default token
+          persist-credentials: false  # disables default token injection
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: Install Jupyter Book
+      - name: Install Jupyter Book and ghp-import
         run: pip install -U jupyter-book ghp-import
 
       - name: Build the book
@@ -27,6 +27,8 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
-          ghp-import -n -p -f _build/html
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          ghp-import -n -f -p _build/html
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
