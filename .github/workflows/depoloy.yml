@@ -1,12 +1,12 @@
-name: Run Jupyter Notebook
+name: Run sachitGame Notebook
 
 on:
   push:
     branches:
-      - main
+      - main  # or your target branch
 
 jobs:
-  execute-notebook:
+  execute-sachitGame:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,15 +23,18 @@ jobs:
         python -m pip install --upgrade pip
         pip install jupyter nbconvert
 
-    - name: 📓 Execute notebook
+    - name: 🗂 List files for debugging
+      run: ls -R
+
+    - name: 📓 Execute sachitGame.ipynb
       run: |
         jupyter nbconvert --to notebook --execute sachitGame.ipynb \
           --ExecutePreprocessor.kernel_name=python3 \
           --ExecutePreprocessor.timeout=600 \
           --output executed_sachitGame.ipynb
-      
+
     - name: 📤 Upload executed notebook
       uses: actions/upload-artifact@v4
       with:
-        name: executed-notebook
+        name: executed-sachitGame
         path: executed_sachitGame.ipynb
