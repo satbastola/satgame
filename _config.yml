@@ -1,0 +1,95 @@
+#######################################################################################
+# Jupyter Book Configuration
+# For full documentation: https://jupyterbook.org/customize/config.html
+#######################################################################################
+
+# 📘 Book Metadata
+title: Jupyter TestGame
+author: Sachit Bastola
+#logo: JupyterbookLogo.png
+
+# ⚙️ Notebook Execution Settings
+execute:
+  execute_notebooks: false
+  timeout: 180
+  allow_errors: false
+  run_in_temp: true
+  only_build_toc_files: true
+
+# 📄 PDF / LaTeX Output
+latex:
+  latex_documents:
+    targetname: book.tex
+    title: Civil Engineering Toolkit
+    author: Satish Bastola
+
+# 📚 Bibliography
+bibtex_bibfiles:
+  - references.bib
+citation_style: apa.csl
+
+# 🔗 Repository Info (for GitHub integration)
+repository:
+  url: https://github.com/satbastola/satgame
+  path_to_book: ""
+  branch: HEAD
+
+# 🌐 HTML Output Settings
+html:
+# baseurl: /CivilEngineering_Tools/
+  use_issues_button: true
+  use_repository_button: true
+  use_edit_page_button: true
+  navbar_footer_text: "Explore, simulate, and experiment with Civil Engineering"
+  navbar_items:
+    - name: Home
+      url: index.html
+    - name: About
+      url: about.html
+    - name: Contact
+      url: contact.html
+    - name: Twitter
+      url: https://twitter.com/yourprofile
+    - name: LinkedIn
+      url: https://linkedin.com/in/yourprofile
+  search:
+    searchbar_position: navbar
+    search_placeholder: "Search this book..."
+  google_analytics_id: UA-XXXXXXX-X
+  footer:
+    text: "© 2025 Satish Bastola. All rights reserved."
+    links:
+      - name: Privacy Policy
+        url: privacy.html
+      - name: Terms of Service
+        url: terms.html
+
+# 🚀 Launch Buttons (Binder, Colab, Thebe)
+launch_buttons:
+  binderhub_url: https://mybinder.org
+  repository: satbastola/satgame
+  branch: HEAD
+  path_to_book: ""
+  jupyterlab: true
+  thebe: true
+  colab_url: https://colab.research.google.com
+
+# 🧩 Sphinx Extensions
+sphinx:
+  config:
+    bibtex_bibfiles:
+      - references.bib
+    bibtex_reference_style: author_year
+#    myst_footnote_transition: false
+  extra_extensions:
+    - sphinx.ext.mathjax
+    - sphinx.ext.autodoc
+    - sphinx.ext.napoleon
+    - sphinx_thebe
+
+# # 📤 nbviewer Integration
+# nbviewer:
+#   base_url: https://nbviewer.jupyter.org/github/
+#   repository: satbastola/CivilEngineering_Tools
+#   branch: HEAD
+#   path_to_book: ""
