@@ -3,4 +3,3 @@ root: intro
 chapters:
   - file: sachitGame
   - file: Game2
-  - file: Game3
