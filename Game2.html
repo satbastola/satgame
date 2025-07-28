@@ -1,0 +1,775 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>🧠 How the Tic-Tac-Toe Program Works &#8212; Jupyter TestGame</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXX-X"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'UA-XXXXXXX-X');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'UA-XXXXXXX-X');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script type="application/vnd.jupyter.widget-state+json">{"state": {"06f3ba39f8514cf6866e1c09e89db4e5": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {}}, "0adb838613e44451b8010ae0434e8d5d": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonStyleModel", "state": {"font_family": null, "font_size": null, "font_style": null, "font_variant": null, "font_weight": null, "text_color": null, "text_decoration": null}}, "0b8ab9358639485e85e7eb1b0bd75dfd": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonModel", "state": {"description": "5", "layout": "IPY_MODEL_731ed5496371408e9ead808ad692a7e3", "style": "IPY_MODEL_9a56511feb0542f18f7f831fcb1d9e00", "tooltip": null}}, "0b8ebc3825694796bdc3d999dfd219bb": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonModel", "state": {"description": "8", "layout": "IPY_MODEL_59e205c397314013b2ed9de2a97a1620", "style": "IPY_MODEL_968bc19a85f04941bfad1a8cdada9d7b", "tooltip": null}}, "0c17e13ee33a414e8681bb636cbdad6a": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_06f3ba39f8514cf6866e1c09e89db4e5", "style": "IPY_MODEL_16856de86be441f39b7df7cb5289d75e", "value": "<h2>\ud83c\udfae Tic Tac Toe Game</h2>"}}, "0ec08f091e0d41989bb908d2fb52448c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonModel", "state": {"description": "X", "disabled": true, "layout": "IPY_MODEL_f7ac51c0655b4e6091569c31f501c919", "style": "IPY_MODEL_868a852488774f43aea477cc9ac6da36", "tooltip": null}}, "1198423e9a7d41b2a54238b299aaeb03": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_4e3fce3d13804c2787a986899d533d34", "style": "IPY_MODEL_d08aa423e5ca4adca314586993f5ecf0", "value": "<h3>\ud83c\udf89 Player X wins!</h3>"}}, "151e6ab7e56d41c2b7d720f3b3ff429f": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"width": "60px"}}, "16856de86be441f39b7df7cb5289d75e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLStyleModel", "state": {"description_width": "", "font_size": null, "text_color": null}}, "221ed0b91e8249ca97c74ffadcbfae67": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonModel", "state": {"description": "X", "disabled": true, "layout": "IPY_MODEL_db3e42bc271b494899dd31a737f35cd6", "style": "IPY_MODEL_b300c01f827d4ed39c4ee24b85ae46c3", "tooltip": null}}, "270b9a2884bb49b6899ad0b4b49b5d31": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonStyleModel", "state": {"font_family": null, "font_size": null, "font_style": null, "font_variant": null, "font_weight": null, "text_color": null, "text_decoration": null}}, "27dd874eb3404cf38ae9461bfb2a40d8": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonStyleModel", "state": {"font_family": null, "font_size": null, "font_style": null, "font_variant": null, "font_weight": null, "text_color": null, "text_decoration": null}}, "2b2ec91bd83d4b89a57be1cd5fcf894c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonStyleModel", "state": {"font_family": null, "font_size": null, "font_style": null, "font_variant": null, "font_weight": null, "text_color": null, "text_decoration": null}}, "2b62d02e116743e4849992c4ab65a188": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLStyleModel", "state": {"description_width": "", "font_size": null, "text_color": null}}, "2f7649ed618b429fa5fff2e8667377f4": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonStyleModel", "state": {"font_family": null, "font_size": null, "font_style": null, "font_variant": null, "font_weight": null, "text_color": null, "text_decoration": null}}, "36ba6b136c914184bdfa5107e284c084": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"grid_template_columns": "repeat(3, 60px)"}}, "3941cdf7f8c844c2a262bd7ce990cb36": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "GridBoxModel", "state": {"children": ["IPY_MODEL_8382cf92e2c94ced9fc0ce005f0ee0e3", "IPY_MODEL_0ec08f091e0d41989bb908d2fb52448c", "IPY_MODEL_ce7d9db2a42a430292dc21733df6a31e", "IPY_MODEL_65f90a20f604428fa88b1086112a7e07", "IPY_MODEL_0b8ab9358639485e85e7eb1b0bd75dfd", "IPY_MODEL_55a4ad08d91b47a388a74701cd713960", "IPY_MODEL_3e41c5dd2e904de498bd0c4798179a97", "IPY_MODEL_0b8ebc3825694796bdc3d999dfd219bb", "IPY_MODEL_79853aa31d3448b3b222de4fe0cd6f0a"], "layout": "IPY_MODEL_36ba6b136c914184bdfa5107e284c084"}}, "3a53b1011b4c4be5a946a412fda40111": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"width": "60px"}}, "3b8b2ec7739949b393de53afbd712006": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"width": "60px"}}, "3e41c5dd2e904de498bd0c4798179a97": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonModel", "state": {"description": "7", "layout": "IPY_MODEL_f1cdf6d432904e4686350fd3a4ad4966", "style": "IPY_MODEL_270b9a2884bb49b6899ad0b4b49b5d31", "tooltip": null}}, "41b1ae018db440e584bd182f612f1810": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonModel", "state": {"description": "O", "disabled": true, "layout": "IPY_MODEL_cfc30cd148db44399570c9e298b26cd4", "style": "IPY_MODEL_0adb838613e44451b8010ae0434e8d5d", "tooltip": null}}, "4516be9be0884a9db8b46ce5936462a0": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonModel", "state": {"description": "O", "disabled": true, "layout": "IPY_MODEL_d4a9cc0e32c441dba716d07a282168ad", "style": "IPY_MODEL_ab9a80cd54fe4e5b87254265d4daf6d7", "tooltip": null}}, "4e3fce3d13804c2787a986899d533d34": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {}}, "53524f2186ab433da18524e1913681d1": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonStyleModel", "state": {"font_family": null, "font_size": null, "font_style": null, "font_variant": null, "font_weight": null, "text_color": null, "text_decoration": null}}, "55a4ad08d91b47a388a74701cd713960": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonModel", "state": {"description": "6", "layout": "IPY_MODEL_d844ff8af354483db59ce8b992a016d5", "style": "IPY_MODEL_f700eb95e1b2452ba4c80888e533177f", "tooltip": null}}, "59e205c397314013b2ed9de2a97a1620": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"width": "60px"}}, "5b103f21aaec48a6a494ad78b92d2444": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonModel", "state": {"description": "X", "disabled": true, "layout": "IPY_MODEL_3b8b2ec7739949b393de53afbd712006", "style": "IPY_MODEL_bccbb43fffd44404885c73356357282c", "tooltip": null}}, "65f90a20f604428fa88b1086112a7e07": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonModel", "state": {"description": "4", "layout": "IPY_MODEL_151e6ab7e56d41c2b7d720f3b3ff429f", "style": "IPY_MODEL_95a65e2733704ec5a5dafa09409d1868", "tooltip": null}}, "731ed5496371408e9ead808ad692a7e3": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"width": "60px"}}, "79853aa31d3448b3b222de4fe0cd6f0a": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonModel", "state": {"description": "9", "layout": "IPY_MODEL_aeb51ca9790046fcb0287e4b11433ba4", "style": "IPY_MODEL_53524f2186ab433da18524e1913681d1", "tooltip": null}}, "7f426ca3109b4bd9911f2682fd8f2503": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"width": "60px"}}, "8362a00a509e47639aeb110c34ddd312": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {}}, "8382cf92e2c94ced9fc0ce005f0ee0e3": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonModel", "state": {"description": "1", "layout": "IPY_MODEL_ee3de50e3dbc45edb9df0484af74d7c9", "style": "IPY_MODEL_f0105f3aebf843c4b3fb1a255f7c92db", "tooltip": null}}, "867c86fe8c6e414bb37a5f10af339adb": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"grid_template_columns": "repeat(3, 60px)"}}, "868a852488774f43aea477cc9ac6da36": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonStyleModel", "state": {"font_family": null, "font_size": null, "font_style": null, "font_variant": null, "font_weight": null, "text_color": null, "text_decoration": null}}, "95a65e2733704ec5a5dafa09409d1868": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonStyleModel", "state": {"font_family": null, "font_size": null, "font_style": null, "font_variant": null, "font_weight": null, "text_color": null, "text_decoration": null}}, "968bc19a85f04941bfad1a8cdada9d7b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonStyleModel", "state": {"font_family": null, "font_size": null, "font_style": null, "font_variant": null, "font_weight": null, "text_color": null, "text_decoration": null}}, "9a56511feb0542f18f7f831fcb1d9e00": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonStyleModel", "state": {"font_family": null, "font_size": null, "font_style": null, "font_variant": null, "font_weight": null, "text_color": null, "text_decoration": null}}, "9b42cc9613764ef68d2d9418f12d4d89": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"width": "60px"}}, "9c63fec83d444466ad7ac55398030c49": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonModel", "state": {"description": "O", "disabled": true, "layout": "IPY_MODEL_e33efb2be3494c9c8362659f5012d3b6", "style": "IPY_MODEL_2f7649ed618b429fa5fff2e8667377f4", "tooltip": null}}, "ab2e24f63e3f4344a5cfc08b6dd8c8e9": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_8362a00a509e47639aeb110c34ddd312", "style": "IPY_MODEL_2b62d02e116743e4849992c4ab65a188", "value": "<h2>\ud83c\udfae Tic Tac Toe Game</h2>"}}, "ab9a80cd54fe4e5b87254265d4daf6d7": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonStyleModel", "state": {"font_family": null, "font_size": null, "font_style": null, "font_variant": null, "font_weight": null, "text_color": null, "text_decoration": null}}, "aeb51ca9790046fcb0287e4b11433ba4": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"width": "60px"}}, "b300c01f827d4ed39c4ee24b85ae46c3": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonStyleModel", "state": {"font_family": null, "font_size": null, "font_style": null, "font_variant": null, "font_weight": null, "text_color": null, "text_decoration": null}}, "bccbb43fffd44404885c73356357282c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonStyleModel", "state": {"font_family": null, "font_size": null, "font_style": null, "font_variant": null, "font_weight": null, "text_color": null, "text_decoration": null}}, "ce7d9db2a42a430292dc21733df6a31e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonModel", "state": {"description": "O", "disabled": true, "layout": "IPY_MODEL_eaca8365875b48d08975af0bd45cd4c0", "style": "IPY_MODEL_2b2ec91bd83d4b89a57be1cd5fcf894c", "tooltip": null}}, "cfc30cd148db44399570c9e298b26cd4": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"width": "60px"}}, "d08aa423e5ca4adca314586993f5ecf0": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLStyleModel", "state": {"description_width": "", "font_size": null, "text_color": null}}, "d34cbb6979ab46c196e4cae83b07e38c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonStyleModel", "state": {"font_family": null, "font_size": null, "font_style": null, "font_variant": null, "font_weight": null, "text_color": null, "text_decoration": null}}, "d497cfdfc61f4009b31019dec884de1f": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonStyleModel", "state": {"font_family": null, "font_size": null, "font_style": null, "font_variant": null, "font_weight": null, "text_color": null, "text_decoration": null}}, "d4a9cc0e32c441dba716d07a282168ad": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"width": "60px"}}, "d844ff8af354483db59ce8b992a016d5": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"width": "60px"}}, "dafce9138e73405db2d613c3ad029c68": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonModel", "state": {"description": "O", "disabled": true, "layout": "IPY_MODEL_9b42cc9613764ef68d2d9418f12d4d89", "style": "IPY_MODEL_d34cbb6979ab46c196e4cae83b07e38c", "tooltip": null}}, "db3e42bc271b494899dd31a737f35cd6": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"width": "60px"}}, "dbdb11c587074ab0ad8224530388b808": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonModel", "state": {"description": "X", "disabled": true, "layout": "IPY_MODEL_fe2e788ff8a84515a4c3ec90ba409c5d", "style": "IPY_MODEL_e445674f89124b5f94597fcb37f19f3b", "tooltip": null}}, "e33efb2be3494c9c8362659f5012d3b6": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"width": "60px"}}, "e445674f89124b5f94597fcb37f19f3b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonStyleModel", "state": {"font_family": null, "font_size": null, "font_style": null, "font_variant": null, "font_weight": null, "text_color": null, "text_decoration": null}}, "eaca8365875b48d08975af0bd45cd4c0": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"width": "60px"}}, "ee3de50e3dbc45edb9df0484af74d7c9": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"width": "60px"}}, "f0105f3aebf843c4b3fb1a255f7c92db": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonStyleModel", "state": {"font_family": null, "font_size": null, "font_style": null, "font_variant": null, "font_weight": null, "text_color": null, "text_decoration": null}}, "f02ab9d4d08b4f149f1a98b94e3f6e6d": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "GridBoxModel", "state": {"children": ["IPY_MODEL_dbdb11c587074ab0ad8224530388b808", "IPY_MODEL_221ed0b91e8249ca97c74ffadcbfae67", "IPY_MODEL_4516be9be0884a9db8b46ce5936462a0", "IPY_MODEL_f6cfb01b6b9b44c1a4af8ca442d47eed", "IPY_MODEL_41b1ae018db440e584bd182f612f1810", "IPY_MODEL_5b103f21aaec48a6a494ad78b92d2444", "IPY_MODEL_f391cccbd4644ba69909f2dee25a10cc", "IPY_MODEL_9c63fec83d444466ad7ac55398030c49", "IPY_MODEL_dafce9138e73405db2d613c3ad029c68"], "layout": "IPY_MODEL_867c86fe8c6e414bb37a5f10af339adb"}}, "f1cdf6d432904e4686350fd3a4ad4966": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"width": "60px"}}, "f391cccbd4644ba69909f2dee25a10cc": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonModel", "state": {"description": "X", "disabled": true, "layout": "IPY_MODEL_7f426ca3109b4bd9911f2682fd8f2503", "style": "IPY_MODEL_d497cfdfc61f4009b31019dec884de1f", "tooltip": null}}, "f6cfb01b6b9b44c1a4af8ca442d47eed": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonModel", "state": {"description": "X", "disabled": true, "layout": "IPY_MODEL_3a53b1011b4c4be5a946a412fda40111", "style": "IPY_MODEL_27dd874eb3404cf38ae9461bfb2a40d8", "tooltip": null}}, "f700eb95e1b2452ba4c80888e533177f": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ButtonStyleModel", "state": {"font_family": null, "font_size": null, "font_style": null, "font_variant": null, "font_weight": null, "text_color": null, "text_decoration": null}}, "f7ac51c0655b4e6091569c31f501c919": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"width": "60px"}}, "fe2e788ff8a84515a4c3ec90ba409c5d": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"width": "60px"}}}, "version_major": 2, "version_minor": 0}</script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@1.0.6/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Game2';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Import necessary library" href="sachitGame.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Jupyter TestGame</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Jupyter Sandbox for Game
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="sachitGame.html">Import necessary library</a></li>
+
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">🧠 How the Tic-Tac-Toe Program Works</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/satbastola/satgame/HEAD?urlpath=tree/Game2.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/satbastola/satgame/blob/HEAD/Game2.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/satbastola/satgame" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/satbastola/satgame/edit/HEAD/Game2.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/satbastola/satgame/issues/new?title=Issue%20on%20page%20%2FGame2.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Game2.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>🧠 How the Tic-Tac-Toe Program Works</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#game-flow-overview">🧩 Game Flow Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-components">🔍 Key Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#print-board-board">1. <code class="docutils literal notranslate"><span class="pre">print_board(board)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-winner-board-player">2. <code class="docutils literal notranslate"><span class="pre">check_winner(board,</span> <span class="pre">player)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#is-full-board">3. <code class="docutils literal notranslate"><span class="pre">is_full(board)</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-validation">🎮 Input &amp; Validation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#end-conditions">🏆 End Conditions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#turn-switching">🔁 Turn Switching</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="how-the-tic-tac-toe-program-works">
+<h1>🧠 How the Tic-Tac-Toe Program Works<a class="headerlink" href="#how-the-tic-tac-toe-program-works" title="Link to this heading">#</a></h1>
+<p>This program implements a <strong>simple two-player Tic-Tac-Toe game</strong> using Python. The gameplay flows in turns, with built-in checks for winning and draw conditions.</p>
+<hr class="docutils" />
+<section id="game-flow-overview">
+<h2>🧩 Game Flow Overview<a class="headerlink" href="#game-flow-overview" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Initialize the board</strong></p>
+<ul class="simple">
+<li><p>A 3×3 grid filled with numbers 1–9 represents available positions.</p></li>
+</ul>
+</li>
+<li><p><strong>Start with Player X</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">current_player</span></code> is initialized as <code class="docutils literal notranslate"><span class="pre">'X'</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>Main Game Loop</strong></p>
+<ul class="simple">
+<li><p>The loop continues until a win or draw occurs.</p></li>
+<li><p>Each turn includes:</p>
+<ul>
+<li><p>Printing the board.</p></li>
+<li><p>Prompting the player for input.</p></li>
+<li><p>Validating the input.</p></li>
+<li><p>Updating the board.</p></li>
+<li><p>Checking for a win.</p></li>
+<li><p>Checking for a draw.</p></li>
+<li><p>Switching turns.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="key-components">
+<h2>🔍 Key Components<a class="headerlink" href="#key-components" title="Link to this heading">#</a></h2>
+<section id="print-board-board">
+<h3>1. <code class="docutils literal notranslate"><span class="pre">print_board(board)</span></code><a class="headerlink" href="#print-board-board" title="Link to this heading">#</a></h3>
+<p>Displays the board in a visually structured format.</p>
+</section>
+<section id="check-winner-board-player">
+<h3>2. <code class="docutils literal notranslate"><span class="pre">check_winner(board,</span> <span class="pre">player)</span></code><a class="headerlink" href="#check-winner-board-player" title="Link to this heading">#</a></h3>
+<p>Checks:</p>
+<ul class="simple">
+<li><p>Each <strong>row</strong>, <strong>column</strong>, and both <strong>diagonals</strong><br />
+to see if all cells are the current player’s symbol (<code class="docutils literal notranslate"><span class="pre">'X'</span></code> or <code class="docutils literal notranslate"><span class="pre">'O'</span></code>).</p></li>
+</ul>
+</section>
+<section id="is-full-board">
+<h3>3. <code class="docutils literal notranslate"><span class="pre">is_full(board)</span></code><a class="headerlink" href="#is-full-board" title="Link to this heading">#</a></h3>
+<p>Checks if the board is full (no remaining numbers), which results in a draw.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="input-validation">
+<h2>🎮 Input &amp; Validation<a class="headerlink" href="#input-validation" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Input must be a digit between <code class="docutils literal notranslate"><span class="pre">1–9</span></code>.</p></li>
+<li><p>If input is invalid or position is already taken, the player is prompted again.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="end-conditions">
+<h2>🏆 End Conditions<a class="headerlink" href="#end-conditions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">check_winner()</span></code> returns <code class="docutils literal notranslate"><span class="pre">True</span></code>:<br />
+→ The game prints the board and announces the winner.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">is_full()</span></code> returns <code class="docutils literal notranslate"><span class="pre">True</span></code> without a winner:<br />
+→ The game ends in a draw.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="turn-switching">
+<h2>🔁 Turn Switching<a class="headerlink" href="#turn-switching" title="Link to this heading">#</a></h2>
+<p>After each valid move, <code class="docutils literal notranslate"><span class="pre">current_player</span></code> is flipped:<br />
+<code class="docutils literal notranslate"><span class="pre">'X'</span></code> ↔ <code class="docutils literal notranslate"><span class="pre">'O'</span></code></p>
+<hr class="docutils" />
+<p>Want to add enhancements like replay functionality, score tracking, or even an AI opponent? I’d love to help upgrade it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ipywidgets</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">widgets</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">clear_output</span>
+
+<span class="c1"># Game state</span>
+<span class="n">board</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;4&#39;</span><span class="p">,</span><span class="s1">&#39;5&#39;</span><span class="p">,</span><span class="s1">&#39;6&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;7&#39;</span><span class="p">,</span><span class="s1">&#39;8&#39;</span><span class="p">,</span><span class="s1">&#39;9&#39;</span><span class="p">]]</span>
+<span class="n">current_player</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span>
+<span class="n">buttons</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Check for winner</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">check_winner</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">player</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">cell</span> <span class="o">==</span> <span class="n">player</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span> <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">player</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)):</span> <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">player</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)):</span> <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span> <span class="o">-</span> <span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">player</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)):</span> <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">is_full</span><span class="p">(</span><span class="n">board</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">cell</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">board</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">)</span>
+
+<span class="c1"># Button click handler</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_click</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+    <span class="n">move</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">description</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">move</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">]:</span>
+        <span class="n">b</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">button_color</span> <span class="o">=</span> <span class="s1">&#39;#ffcccc&#39;</span>
+        <span class="n">b</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;❌&#39;</span>
+        <span class="k">return</span>
+
+    <span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_player</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">current_player</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="n">check_winner</span><span class="p">(</span><span class="n">board</span><span class="p">,</span> <span class="n">current_player</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">widgets</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&lt;h3&gt;🎉 Player </span><span class="si">{</span><span class="n">current_player</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> wins!&lt;/h3&gt;&quot;</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">btn</span> <span class="ow">in</span> <span class="n">buttons</span><span class="p">:</span>
+            <span class="n">btn</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="n">is_full</span><span class="p">(</span><span class="n">board</span><span class="p">):</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">widgets</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&lt;h3&gt;🤝 It&#39;s a draw!&lt;/h3&gt;&quot;</span><span class="p">))</span>
+        <span class="k">return</span>
+
+    <span class="n">current_player</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;O&#39;</span> <span class="k">if</span> <span class="n">current_player</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;X&#39;</span> <span class="k">else</span> <span class="s1">&#39;X&#39;</span>
+
+<span class="c1"># Create buttons grid</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">launch_game</span><span class="p">():</span>
+    <span class="n">clear_output</span><span class="p">()</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">widgets</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&lt;h2&gt;🎮 Tic Tac Toe Game&lt;/h2&gt;&quot;</span><span class="p">))</span>
+    <span class="k">global</span> <span class="n">buttons</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">current_player</span>
+    <span class="n">board</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;4&#39;</span><span class="p">,</span><span class="s1">&#39;5&#39;</span><span class="p">,</span><span class="s1">&#39;6&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;7&#39;</span><span class="p">,</span><span class="s1">&#39;8&#39;</span><span class="p">,</span><span class="s1">&#39;9&#39;</span><span class="p">]]</span>
+    <span class="n">current_player</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
+    <span class="n">buttons</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">GridBox</span><span class="p">(</span><span class="n">layout</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">grid_template_columns</span><span class="o">=</span><span class="s2">&quot;repeat(3, 60px)&quot;</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+        <span class="n">btn</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s2">&quot;60px&quot;</span><span class="p">))</span>
+        <span class="n">btn</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="n">on_click</span><span class="p">)</span>
+        <span class="n">buttons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">btn</span><span class="p">)</span>
+
+    <span class="n">grid</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">buttons</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
+
+<span class="n">launch_game</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0c17e13ee33a414e8681bb636cbdad6a", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "3941cdf7f8c844c2a262bd7ce990cb36", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "satbastola/satgame",
+            ref: "HEAD",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "conda-base-py"
+        },
+        kernelOptions: {
+            name: "conda-base-py",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'conda-base-py'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="sachitGame.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Import necessary library</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#game-flow-overview">🧩 Game Flow Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-components">🔍 Key Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#print-board-board">1. <code class="docutils literal notranslate"><span class="pre">print_board(board)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-winner-board-player">2. <code class="docutils literal notranslate"><span class="pre">check_winner(board,</span> <span class="pre">player)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#is-full-board">3. <code class="docutils literal notranslate"><span class="pre">is_full(board)</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-validation">🎮 Input &amp; Validation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#end-conditions">🏆 End Conditions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#turn-switching">🔁 Turn Switching</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sachit Bastola
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
